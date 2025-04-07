@@ -68,9 +68,14 @@ def parse_args() -> argparse.Namespace:
         help='delete old files in ispmanager web root before deploying'
     )
 
+    # current_dir = os.path.dirname(os.path.realpath(__file__))
+    # log_path = os.path.join(current_dir, './deploy_log/', 'deploy.log')
+    # log_path = os.path.realpath(log_path)
+    # print(log_path)
 
     parser.add_argument(
         '--log-file',
+        default='deploy.log',
         help='Custom log file, for example: test_site.log',
     )
 
@@ -88,24 +93,26 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-# log = get_logger.setup_logger()
-
 # log.info('test start')
 
 
 def main():
     args = parse_args()
-    # log.info('Start move')
-    print(args)
+    
+    # Определяется дефолтная директория со скриптом
+    # и определяем кастомный лог файл или дефолтный
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    log_path = os.path.join(current_dir, './deploy_log/', args.log_file)
+    log_path = os.path.realpath(log_path)
+
+    
+    logger = get_logger('HestiaCP', log_path, args.debug)
+
+    logger.info('Start move')
+    logger.debug(f'args - {args}')
+
     pass
 
 
 if __name__ == '__main__':
     main()
-    # os.path.realpath(log_path)
-    # print(os.path.dirname(os.path.realpath(__file__)))
-    current_dir = os.path.dirname(os.path.realpath(__file__))
-
-    log_path = os.path.join(current_dir, '../deploy_log', 'deploy.log')
-    log_path = os.path.realpath(log_path)
-    print(log_path)
