@@ -3,7 +3,7 @@ import string
 import random
 
 # Создаем пароль
-def create_pas(length):
+def create_pas(length:int=12) -> str:
     # Используем только цифры и буквы (заглавные и строчные)
     characters = string.ascii_letters + string.digits
     # Генерируем случайный пароль
@@ -54,3 +54,5 @@ def sed_db_access():
     pass
 
 create_database('example.example.com')
+
+print(type(create_pas()))
