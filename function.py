@@ -10,7 +10,7 @@ def create_pas(length:int=12) -> str:
     password = ''.join(random.choice(characters) for _ in range(length))
     return password
 
-def create_user(name_user='user'):
+def create_user(name_user:str='user'):
     # check_user(name_user) # После создания чеков активировать
     # Команда для создания пользователя, после проверки если его нет
     command = f'v-add-user {name_user} "{create_pas(12)}" example@exampl.com'

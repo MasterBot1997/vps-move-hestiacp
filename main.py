@@ -1,7 +1,11 @@
+#!/usr/bin/python3
+
 import argparse
 import os
 
-from custom_logger import get_logger
+from logger import get_logger
+from subprocess_helper import SubprocessHelper
+
 
 def parse_args() -> argparse.Namespace:
 
@@ -102,14 +106,27 @@ def main():
     # Определяется дефолтная директория со скриптом
     # и определяем кастомный лог файл или дефолтный
     current_dir = os.path.dirname(os.path.realpath(__file__))
+    log_dir = os.path.join(current_dir, 'deploy_log')
+    os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(current_dir, './deploy_log/', args.log_file)
-    log_path = os.path.realpath(log_path)
+    # log_path = os.path.realpath(log_path)
 
     
     logger = get_logger('HestiaCP', log_path, args.debug)
 
-    logger.info('Start move')
-    logger.debug(f'args - {args}')
+    # logger.info('Start move')
+    # logger.debug(f'args - {args}')
+
+    logger.debug("Debug: подробная отладочная информация.")
+    logger.info("Info: обычное сообщение о ходе выполнения.")
+    logger.warning("Warning: предупреждение, но не ошибка.")
+    logger.error("Error: что-то пошло не так.")
+    logger.critical("Critical: критическая ошибка, всё падает!")
+
+    subprocess_helper = SubprocessHelper(logger)
+
+
+    # print(args.user)
 
     pass
 
