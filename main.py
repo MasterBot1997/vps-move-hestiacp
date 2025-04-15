@@ -5,6 +5,7 @@ import os
 
 from logger import get_logger
 from subprocess_helper import SubprocessHelper
+from hestiacp_helper import HestiaCPHelper
 
 
 def parse_args() -> argparse.Namespace:
@@ -22,7 +23,7 @@ def parse_args() -> argparse.Namespace:
         '-u', 
         '--user', 
         help='ssh user',
-        default='user', 
+        default='root', 
         required=True
     )
 
@@ -72,11 +73,6 @@ def parse_args() -> argparse.Namespace:
         help='delete old files in ispmanager web root before deploying'
     )
 
-    # current_dir = os.path.dirname(os.path.realpath(__file__))
-    # log_path = os.path.join(current_dir, './deploy_log/', 'deploy.log')
-    # log_path = os.path.realpath(log_path)
-    # print(log_path)
-
     parser.add_argument(
         '--log-file',
         default='deploy.log',
@@ -97,9 +93,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-# log.info('test start')
-
-
 def main():
     args = parse_args()
     
@@ -114,16 +107,19 @@ def main():
     
     logger = get_logger('HestiaCP', log_path, args.debug)
 
-    # logger.info('Start move')
-    # logger.debug(f'args - {args}')
-
-    logger.debug("Debug: подробная отладочная информация.")
-    logger.info("Info: обычное сообщение о ходе выполнения.")
-    logger.warning("Warning: предупреждение, но не ошибка.")
-    logger.error("Error: что-то пошло не так.")
-    logger.critical("Critical: критическая ошибка, всё падает!")
+    logger.info('Start move')
+    logger.debug(f'args - {args}')
 
     subprocess_helper = SubprocessHelper(logger)
+
+    check = HestiaCPHelper(logger)
+    print(check._list_php())
+
+    # logger.debug("Debug: подробная отладочная информация.")
+    # logger.info("Info: обычное сообщение о ходе выполнения.")
+    # logger.warning("Warning: предупреждение, но не ошибка.")
+    # logger.error("Error: что-то пошло не так.")
+    # logger.critical("Critical: критическая ошибка, всё падает!")
 
 
     # print(args.user)

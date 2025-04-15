@@ -26,22 +26,6 @@ class ColoredFormatter(logging.Formatter):
         logging.Formatter.__init__(self, msg)
         self._use_color = use_color
 
-    # def format(self, record: logging.LogRecord):
-    #     levelname = record.levelname
-
-    #     if self._use_color and levelname in self.COLORS:
-    #         levelname_colored = self.color_string(levelname, self.COLORS[levelname])
-    #         record.levelname = levelname_colored
-
-    #     if len(record.msg) > self.MAX_LINE_LENGTH:
-    #         msg = record.msg[:self.MAX_LINE_LENGTH] + "...TRUNCATED"
-    #         if self._use_color:
-    #             msg = record.msg[:self.MAX_LINE_LENGTH] + "..." + self.color_string("TRUNCATED", self.YELLOW)
-
-    #         record.msg = msg
-
-    #     return logging.Formatter.format(self, record)
-
     def format(self, record: logging.LogRecord):
     # Создаем копию записи, чтобы не испортить уровень логирования
         record_copy = logging.LogRecord(
