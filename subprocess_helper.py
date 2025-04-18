@@ -21,7 +21,7 @@ class SubprocessHelper:
             chdir: Optional[str] = None,
             save_to_file: Optional[str] = None,
             rc_excludes: List[int] = [],
-            shell=False) -> str:
+            shell=True) -> str:
 
         stdout = subprocess.PIPE
         stderr = subprocess.PIPE
