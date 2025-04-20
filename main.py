@@ -1,7 +1,9 @@
-#!/usr/bin/python3
+# !/usr/bin/python3
 
 import argparse
 import os
+import function
+import checker
 
 from logger import get_logger
 from subprocess_helper import SubprocessHelper
@@ -54,6 +56,19 @@ def parse_args() -> argparse.Namespace:
         '--pas',
         metavar='PASSWORD',
         help='ssh password',
+    )
+
+    parser.add_argument(
+        '-d',
+        '--domain', 
+        help='domain',
+        required=True
+    )
+
+    parser.add_argument(
+        '--owner',
+        default='user',
+        help='user HestiaCP'
     )
 
     parser.add_argument(
@@ -110,9 +125,9 @@ def main():
     logger.debug(f'args - {args}')
 
     subprocess_helper = SubprocessHelper(logger)
+    hestia_helper = HestiaCPHelper(logger)
 
-    check = HestiaCPHelper(logger)
-    print(check._list_php())
+    hestia_helper.add_domain(args.owner, args.domain)
 
 
 
