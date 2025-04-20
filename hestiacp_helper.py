@@ -24,4 +24,9 @@ class HestiaCPHelper():
         stdout = self._subprocess_helper.run(cmd)
         return stdout
     
-    pass
+    def _change_php(self):
+        pass
+    
+    def add_domain(self, user: str, domain: str):
+        cmd = f'v-add-web-domain {user} {domain}'
+        self._subprocess_helper.run(cmd)
