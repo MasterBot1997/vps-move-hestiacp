@@ -55,4 +55,4 @@ def sed_db_access():
 
 create_database('example.example.com')
 
-print(type(create_pas()))
+# print(type(create_pas()))
